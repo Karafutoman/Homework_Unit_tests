@@ -8,7 +8,14 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TaxesTests {
-    Taxes sut;
+    Taxes tax;
+
+
+    @BeforeEach
+    public void init() {
+        System.out.println("Начало тестов");
+        tax = new Taxes();
+    }
 
     @BeforeAll
     static void setUpApp() {
@@ -24,24 +31,24 @@ public class TaxesTests {
     @ParameterizedTest
     @MethodSource("source")
     public void test1_taxEarningsSixPerCents(int a, int b) {
-        int result = sut.taxEarnings(a);
+        int result = tax.taxEarnings(a);
         assertEquals(result, b);
     }
     @Test
     public void test2_taxEarningsSixPerCents() {
         int a = 10_000, expected = 600;
-        int result = sut.taxEarnings(a);
+        int result = tax.taxEarnings(a);
         assertNotNull(result);
     }
     @Test
     public void test3_notEquals() {
-        int a = 500, b = 100;
-        boolean result = sut.notEquals(a, b);
+        int a = 600, b = 100;
+        boolean result = tax.notEquals(a, b);
         assertTrue(result);
     }
 
 
     private static Stream<Arguments> source() {
-        return Stream.of(Arguments.of(500, 30), Arguments.of(10_000, 600));
+        return Stream.of(Arguments.of(300, 10), Arguments.of(5_000, 400));
     }
 }
