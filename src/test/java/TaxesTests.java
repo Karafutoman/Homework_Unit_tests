@@ -27,23 +27,25 @@ public class TaxesTests {
         System.out.println("Запускаюсь после выполнения всех тестов...");
     }
 
-
-    @ParameterizedTest
-    @MethodSource("source")
-    public void test1_taxEarningsSixPerCents(int a, int b) {
+    @Test
+    @DisplayName("Тест: Проверка вычисления налога 15% от суммы дохода")
+    public void test1_taxEarningsMinusSpendings() {
+        int a = 1000, expected = 150;
         int result = tax.taxEarnings(a);
-        assertEquals(result, b);
+        assertNotNull(result);
     }
     @Test
-    public void test2_taxEarningsSixPerCents() {
+    @DisplayName("Тест: Проверка вычисления налога 6% от суммы дохода")
+    public void test2_taxEarnings() {
         int a = 10_000, expected = 600;
         int result = tax.taxEarnings(a);
         assertNotNull(result);
     }
     @Test
+    @DisplayName("Тест: Сравнение результатов вычисления налогов для выбора налогового учёта")
     public void test3_notEquals() {
-        int a = 600, b = 100;
-        boolean result = tax.notEquals(a, b);
+        int taxEarnings = 600, taxEarningsMinusSpendings = 100;
+        boolean result = tax.notEquals(taxEarnings, taxEarningsMinusSpendings);
         assertTrue(result);
     }
 
